@@ -156,7 +156,7 @@
 			     */
 			    
 			scene.animationGroups.forEach(anima =>{
-					anima.play(1)
+					anima.stop();
 				})
 
 			//const machine_mat = scene.getMaterialByName ("machine_base");
@@ -227,7 +227,7 @@
 		guiMenu.idealHeight = 720; //fit our fullscreen ui to this height
 		
 		//create a simple button
-		const startBtn = new BABYLON.GUI.Button.CreateSimpleButton("start", "PLAY");
+		const startBtn = new BABYLON.GUI.Button.CreateSimpleButton("start", "PUMP");
 		startBtn.width = 0.2;
 		startBtn.height = "40px";
 		startBtn.color = "white";
@@ -238,8 +238,16 @@
 		
 		//this handles interactions with the start button attached to the scene
 		startBtn.onPointerDownObservable.add(() => {
-		    //this._goToCutScene();
-		   // scene.detachControl(); //observables disabled
+			const pump = scene.getAnimationGroupByName("PumpAction");
+			const inflate = scene.getAnimationGroupByName("InflateAction");
+			const rig = scene.getAnimationGroupByName("metarigAction");
+			inflate.play(0);
+			rig.play(0);
+		    	pump.start(false, 1.0, pump.from, pump.to, false).then((result) =>{
+				inflate.pause();
+				rig.pause();
+			};
+		   
 		});
 		
 		/**TODO: 场景debug
