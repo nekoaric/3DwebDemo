@@ -284,7 +284,7 @@
 					pump.play(0);
 					setTimeout(()=>{
 						rig.pause();
-						pump.pause();
+						inflate.pause();
 					},"1500");
 				    }
 		            }
