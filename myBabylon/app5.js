@@ -63,11 +63,12 @@
 		    reflectionMaterial.specularTexture = new BABYLON.Texture("/textures/Grass001_1K_Roughness.jpg", scene);
 		    reflectionMaterial.specularTexture.uScale = 8;
 		    reflectionMaterial.specularTexture.vScale = 8;
-		   */
+		  
 		    var refMat2 = reflectionMaterial.clone();
 		    reflectionMaterial.alphaMode = 1;
 		    reflectionMaterial.alpha = 0.2;
 		    reflectionMaterial.roughness = 0.6;
+		     */
 		    //reflectionMaterial.reflectionTexture = new BABYLON.MirrorTexture("mirror", 1024, scene, true);
 		    //reflectionMaterial.reflectionTexture.mirrorPlane = new BABYLON.Plane(0, -1.0, 0, -2.0);
 		    
@@ -135,14 +136,14 @@
 	            	//启用阴影
 	            	generator.addShadowCaster(result.meshes[i]); 
 	            	if(result.meshes[i].name.indexOf("mirror") !== -1){
-						result.meshes[i].material  = reflectionMaterial;
+						//result.meshes[i].material  = reflectionMaterial;
 					} 
 					
 					if(result.meshes[i].name.indexOf("line") !== -1){
-						result.meshes[i].material  = emLightmat;
+						//result.meshes[i].material  = emLightmat;
 					} 
 					if(result.meshes[i].name.indexOf("machine") !== -1){
-						result.meshes[i].material  = refMat2;
+						//result.meshes[i].material  = refMat2;
 					} 
 		        }
 		        
@@ -154,11 +155,11 @@
 		        }
 			     */
 			    
-			    scene.animationGroups.forEach(anima =>{
+			scene.animationGroups.forEach(anima =>{
 					anima.play(1)
 				})
-			     
-			    //const machine_mat = scene.getMaterialByName ("machine_base");
+
+		//const machine_mat = scene.getMaterialByName ("machine_base");
 		    	
 		    	/** 启用碰撞
 		    	const root = result.meshes[0] ;
@@ -167,16 +168,16 @@
 			        mesh.checkCollisions = true ;
 			    }
 				    	
-				//阴影生成器
-				//var generator = new BABYLON.ShadowGenerator(512, light2);
-		        //generator.useBlurExponentialShadowMap = true;
-		        //generator.blurKernel = 32;
-		        
-				for (var i = 0; i < result.meshes.length; i++) {
-					//console.log(result.meshes[i]);
-	            	//启用阴影
-	            	//generator.addShadowCaster(result.meshes[i]);    
-		        }
+			//阴影生成器
+			var generator = new BABYLON.ShadowGenerator(512, light2);
+			generator.useBlurExponentialShadowMap = true;
+			generator.blurKernel = 32;
+
+			for (var i = 0; i < result.meshes.length; i++) {
+				//console.log(result.meshes[i]);
+				//启用阴影
+				generator.addShadowCaster(result.meshes[i]);    
+			}
 		        */
 		    });
 		    
