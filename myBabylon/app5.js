@@ -87,10 +87,27 @@
 		    //var plane = BABYLON.Mesh.CreatePlane("plane", 10.0, scene);
 		    //plane.material =  emLightmat;
 		    
+			// Create meshes
+		    var sphereGlass = BABYLON.Mesh.CreatePlane("plane",{width:50, height:50}, scene);
+
+		    // Create materials
+		    var glass = new BABYLON.PBRMaterial("glass", scene);
+		    glass.reflectionTexture = hdrTexture;    
+		    glass.indexOfRefraction = 0.52;
+		    glass.alpha = 0.5;
+		    glass.directIntensity = 0.0;
+		    glass.environmentIntensity = 0.7;
+		    glass.cameraExposure = 0.66;
+		    glass.cameraContrast = 1.66;
+		    glass.microSurface = 1;
+		    glass.reflectivityColor = new BABYLON.Color3(0.2, 0.2, 0.2);
+		    glass.albedoColor = new BABYLON.Color3(0.95, 0.95, 0.95);
+		    sphereGlass.material = glass;
+		
 		    //导入模型
 		    //SceneLoader.ImportMesh("","/models/","factoryBuild2.gltf",this.scene);
 		    //BABYLON.SceneLoader.Append("/models/", "fac_suzhou.glb", scene, function () {
-			BABYLON.SceneLoader.ImportMeshAsync("","/models/", "fac_inside.glb").then((result) =>{
+			BABYLON.SceneLoader.ImportMeshAsync("","models/", "ocInflate.glb").then((result) =>{
 		        // do something with the scene
 		        //console.log(result);
 		    	//const anim = scene.getAnimationGroupByName("wajueji_rigAction");
@@ -101,7 +118,7 @@
 			    for (var i = 0; i < result.meshes.length; i++) {
 					//console.log(result.meshes[i]);
 	            	//启用阴影
-	            	//generator.addShadowCaster(result.meshes[i]); 
+	            	generator.addShadowCaster(result.meshes[i]); 
 	            	if(result.meshes[i].name.indexOf("mirror") !== -1){
 						result.meshes[i].material  = reflectionMaterial;
 					} 
