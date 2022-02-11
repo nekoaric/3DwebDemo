@@ -236,19 +236,21 @@
 		startBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
 		guiMenu.addControl(startBtn);
 		
-		//this handles interactions with the start button attached to the scene
-		startBtn.onPointerDownObservable.add(() => {
+		function pumpMove(){
 			const pump = scene.getAnimationGroupByName("PumpAction");
 			const inflate = scene.getAnimationGroupByName("InflateAction");
 			const rig = scene.getAnimationGroupByName("metarigAction");
 			inflate.play(0);
 			rig.play(0);
-		    	pump.play(0).then((result) =>{
-				inflate.pause();
+		    	pump.play(0);
+			setTimeout(()=>{
 				rig.pause();
-			});
-		   
-		});
+				pump.pause();
+			},"1500");
+		}
+
+		//this handles interactions with the start button attached to the scene
+		startBtn.onPointerDownObservable.add(pumpMove());
 		
 		/**TODO: 场景debug
 		// hide/show the Inspector
@@ -278,7 +280,11 @@
 		});
 		
 		const pointerDown = (mesh) => {
-			console.log(mesh);
+			//console.log(mesh);
+			if(mesh.name.indexOf("pump") !== -1){
+				pumpMove();
+			} 
+			
 		}
 	    
         // Register a render loop to repeatedly render the scene
