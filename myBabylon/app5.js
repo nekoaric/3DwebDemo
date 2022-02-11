@@ -236,7 +236,7 @@
 		startBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
 		guiMenu.addControl(startBtn);
 		
-		function pumpMove(){
+		function pumpMove(scene){
 			const pump = scene.getAnimationGroupByName("PumpAction");
 			const inflate = scene.getAnimationGroupByName("InflateAction");
 			const rig = scene.getAnimationGroupByName("metarigAction");
@@ -250,7 +250,7 @@
 		}
 
 		//this handles interactions with the start button attached to the scene
-		startBtn.onPointerDownObservable.add(pumpMove());
+		startBtn.onPointerDownObservable.add(pumpMove(scene));
 		
 		/**TODO: 场景debug
 		// hide/show the Inspector
@@ -282,7 +282,7 @@
 		const pointerDown = (mesh) => {
 			//console.log(mesh);
 			if(mesh.name.indexOf("pump") !== -1){
-				pumpMove();
+				pumpMove(scene);
 			} 
 			
 		}
