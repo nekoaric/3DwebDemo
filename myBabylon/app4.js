@@ -42,12 +42,7 @@
 		   
 		    
 		BABYLON.SceneLoader.ImportMeshAsync("","", "jackle.gltf").then((result) =>{
-		        // do something with the scene
-		        //console.log(result);
-		    	const anim = scene.getAnimationGroupByName("wajueji_rigAction");
-		    	anim.start(true, 1.0, anim.from, anim.to, false);
-		    	const keyAnim = scene.getAnimationGroupByName("KeyAction");
-		    	keyAnim.start(true, 1.0, keyAnim.from, keyAnim.to, false);
+		        
 		    	
 		    	//启用碰撞
 		    	const root = result.meshes[0] ;
@@ -71,11 +66,7 @@
 		     */
 		    
 		    
-		    //TODO:替换材质
-		    const whiteMat = new BABYLON.StandardMaterial("whiteMat");
-			whiteMat.diffuseColor = new BABYLON.Color3.White();
-			const picMat = new BABYLON.StandardMaterial("picMat");
-			picMat.diffuseTexture = new BABYLON.Texture("/imgs/skybox_nx.jpg");
+		   
 		    
 		    /** Lights*/
 		    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
