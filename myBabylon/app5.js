@@ -124,7 +124,7 @@
 		    //导入模型
 		    //SceneLoader.ImportMesh("","/models/","factoryBuild2.gltf",this.scene);
 		    //BABYLON.SceneLoader.Append("/models/", "fac_suzhou.glb", scene, function () {
-			BABYLON.SceneLoader.Append("models/", "ocInflate.glb", scene).then((result) =>{
+			BABYLON.SceneLoader.ImportMeshAsync("models/", "ocInflate.glb").then((result) =>{
 		        // do something with the scene
 		        //console.log(result);
 		    	//const anim = scene.getAnimationGroupByName("wajueji_rigAction");
