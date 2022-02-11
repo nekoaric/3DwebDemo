@@ -7,7 +7,7 @@
 		    // Create a basic BJS Scene object
 		    const scene = new BABYLON.Scene(engine);
 		    
-		    /**俯视图camera
+		    /**俯视图camera */
 		    const camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 1, new BABYLON.Vector3(0, 0, 0));
 		    camera.setPosition(new BABYLON.Vector3(0, 15, -40));
 		    camera.zoomToMouseLocation = true ;
@@ -21,24 +21,24 @@
 		    camera.useAutoRotationBehavior = true;
 		    camera.autoRotationBehavior.idleRotationSpeed = 0.05;
 		    camera.setTarget(BABYLON.Vector3.Zero());
-		     */
+		    
 		    
 		    //gamecamera
-		    const camera1 = new BABYLON.UniversalCamera("FirstViewCamera", new BABYLON.Vector3(0, 10, 30), scene);
-		    camera1.ellipsoid = new BABYLON.Vector3(0.5, 0.5, 0.5);
-		    camera1.speed = 0.4;
-		    scene.collisionsEnabled = true;
+		    //const camera1 = new BABYLON.UniversalCamera("FirstViewCamera", new BABYLON.Vector3(0, 10, 30), scene);
+		    //camera1.ellipsoid = new BABYLON.Vector3(0.5, 0.5, 0.5);
+		   // camera1.speed = 0.4;
+		    //scene.collisionsEnabled = true;
 		    //camera1.checkCollisions = true;
 		    //camera1.applyGravity = true;
 		    //Controls  WASD
-		    camera1.keysUp.push(87);
-		    camera1.keysDown.push(83);
-		    camera1.keysRight.push(68);
-		    camera1.keysLeft.push(65);
-		    camera1.keysUpward.push(32);
-		    camera1.minZ = 0.1;
+		    //camera1.keysUp.push(87);
+		    //camera1.keysDown.push(83);
+		    //camera1.keysRight.push(68);
+		    //camera1.keysLeft.push(65);
+		    //camera1.keysUpward.push(32);
+		    //camera1.minZ = 0.1;
 		    
-		    camera1.attachControl(canvas, true);
+		    //camera1.attachControl(canvas, true);
 		   
 		    
 		BABYLON.SceneLoader.ImportMeshAsync("","", "jackle.gltf").then((result) =>{
