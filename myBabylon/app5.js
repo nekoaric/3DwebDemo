@@ -55,7 +55,7 @@
 		    ssr.reflectionSpecularFalloffExponent = 3; // Attenuate the reflections a little bit. (typically in interval [1, 3])
 		    
 		    
-		    //镜面材质
+		    /**镜面材质
 		    var reflectionMaterial = new BABYLON.StandardMaterial("reflectionMaterial", scene);
 		    reflectionMaterial.diffuseTexture = new BABYLON.Texture("/textures/Grass001_1K_Roughness.jpg", scene);
 		    reflectionMaterial.diffuseTexture.uScale = 16;
@@ -63,7 +63,7 @@
 		    reflectionMaterial.specularTexture = new BABYLON.Texture("/textures/Grass001_1K_Roughness.jpg", scene);
 		    reflectionMaterial.specularTexture.uScale = 8;
 		    reflectionMaterial.specularTexture.vScale = 8;
-		   
+		   */
 		    var refMat2 = reflectionMaterial.clone();
 		    reflectionMaterial.alphaMode = 1;
 		    reflectionMaterial.alpha = 0.2;
