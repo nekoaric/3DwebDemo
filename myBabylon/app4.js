@@ -24,9 +24,9 @@
 		     */
 		    
 		    //gamecamera
-		    const camera1 = new BABYLON.UniversalCamera("FirstViewCamera", new BABYLON.Vector3(0, 10, -30), scene);
-		    camera1.ellipsoid = new BABYLON.Vector3(4, 4, 4);
-		    camera1.speed = 0.2;
+		    const camera1 = new BABYLON.UniversalCamera("FirstViewCamera", new BABYLON.Vector3(0, 10, 30), scene);
+		    camera1.ellipsoid = new BABYLON.Vector3(0.5, 0.5, 0.5);
+		    camera1.speed = 0.4;
 		    scene.collisionsEnabled = true;
 		    //camera1.checkCollisions = true;
 		    //camera1.applyGravity = true;
