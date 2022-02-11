@@ -89,7 +89,7 @@
 		    //plane.material =  emLightmat;
 		    
 			// Environment Texture
-		    var hdrTexture = new BABYLON.HDRCubeTexture("hdr/greenwich_park_02_2k.hdr.hdr", scene, 512);
+		    var hdrTexture = new BABYLON.HDRCubeTexture("hdr/greenwich_park_02_2k.hdr", scene, 512);
 
 		    // Skybox
 		    var hdrSkybox = BABYLON.Mesh.CreateBox("hdrSkyBox", 1000.0, scene);
@@ -131,11 +131,10 @@
 		    	//const keyAnim = scene.getAnimationGroupByName("KeyAction");
 		    	//keyAnim.start(true, 1.0, keyAnim.from, keyAnim.to, false);
 		    	
-			    for (var i = 0; i < result.meshes.length; i++) {
-					//console.log(result.meshes[i]);
-	            	//启用阴影
-	            	generator.addShadowCaster(result.meshes[i]); 
-	            	if(result.meshes[i].name.indexOf("mirror") !== -1){
+		    	for (var i = 0; i < result.meshes.length; i++) {
+				//console.log(result.meshes[i]);
+	            	
+	            		if(result.meshes[i].name.indexOf("mirror") !== -1){
 						//result.meshes[i].material  = reflectionMaterial;
 					} 
 					
@@ -159,7 +158,7 @@
 					anima.play(1)
 				})
 
-		//const machine_mat = scene.getMaterialByName ("machine_base");
+			//const machine_mat = scene.getMaterialByName ("machine_base");
 		    	
 		    	/** 启用碰撞
 		    	const root = result.meshes[0] ;
