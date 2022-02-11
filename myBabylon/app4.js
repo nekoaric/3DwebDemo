@@ -39,9 +39,9 @@
 		    camera1.minZ = 0.1;
 		    
 		    camera1.attachControl(canvas, true);
-		    //SceneLoader.ImportMesh("","/models/","factoryBuild2.gltf",this.scene);
-		    //BABYLON.SceneLoader.Append("/models/", "fac_suzhou.glb", scene, function () {
-			BABYLON.SceneLoader.ImportMeshAsync("","", "jackle.gltf").then((result) =>{
+		   
+		    
+		BABYLON.SceneLoader.ImportMeshAsync("","", "jackle.gltf").then((result) =>{
 		        // do something with the scene
 		        //console.log(result);
 		    	const anim = scene.getAnimationGroupByName("wajueji_rigAction");
