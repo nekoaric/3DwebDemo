@@ -25,8 +25,8 @@
 		    
 		    //gamecamera
 		    const camera1 = new BABYLON.UniversalCamera("FirstViewCamera", new BABYLON.Vector3(0, 10, -30), scene);
-		    camera1.ellipsoid = new BABYLON.Vector3(0.3, 0.3, 0.3);
-		    camera1.speed = 0.1;
+		    camera1.ellipsoid = new BABYLON.Vector3(4, 4, 4);
+		    camera1.speed = 0.2;
 		    scene.collisionsEnabled = true;
 		    //camera1.checkCollisions = true;
 		    //camera1.applyGravity = true;
@@ -43,7 +43,9 @@
 		    
 		BABYLON.SceneLoader.ImportMeshAsync("","", "jackle.gltf").then((result) =>{
 		        
-		    	
+		    	scene.animationGroups.forEach(anima =>{
+					anima.play(1)
+				})
 		    	//启用碰撞
 		    	const root = result.meshes[0] ;
 			    const childMeshes = root.getChildMeshes() ;
@@ -52,18 +54,7 @@
 			    }
 					    	
 		    });
-		    /**拉进动画
-		    //动画集合
-		    const animations = [];
-		    const animCam = new BABYLON.Animation("camAnimation", "position", 60, BABYLON.Animation.ANIMATIONTYPE_VECTOR3);
-		    //定义帧位置
-	        animCam.setKeys([
-				{frame: 0,value: new BABYLON.Vector3(-100, 40, -200)},
-				{frame: 120,value: new BABYLON.Vector3(0, 10, -30)},
-			]);
-			animations.push(animCam);
-	        scene.beginDirectAnimation(camera,animations, 0, 120, false);
-		     */
+		 
 		    
 		    
 		   
