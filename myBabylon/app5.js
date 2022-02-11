@@ -236,7 +236,10 @@
 		startBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
 		guiMenu.addControl(startBtn);
 		
-		function pumpMove(scene){
+		
+
+		//this handles interactions with the start button attached to the scene
+		startBtn.onPointerDownObservable.add(()=>{
 			const pump = scene.getAnimationGroupByName("PumpAction");
 			const inflate = scene.getAnimationGroupByName("InflateAction");
 			const rig = scene.getAnimationGroupByName("metarigAction");
@@ -247,10 +250,7 @@
 				rig.pause();
 				pump.pause();
 			},"1500");
-		}
-
-		//this handles interactions with the start button attached to the scene
-		startBtn.onPointerDownObservable.add(pumpMove(scene));
+		});
 		
 		/**TODO: 场景debug
 		// hide/show the Inspector
@@ -273,19 +273,25 @@
 		    switch (pointerInfo.type) {
 		        case BABYLON.PointerEventTypes.POINTERDOWN:
 		            if(pointerInfo.pickInfo.hit) {
-		                pointerDown(pointerInfo.pickInfo.pickedMesh);
+		                var mesh = pointerDown(pointerInfo.pickInfo.pickedMesh);
+				    if(mesh.name.indexOf("pump") !== -1){
+				    	const pump = scene.getAnimationGroupByName("PumpAction");
+					const inflate = scene.getAnimationGroupByName("InflateAction");
+					const rig = scene.getAnimationGroupByName("metarigAction");
+					inflate.play(0);
+					rig.play(0);
+					pump.play(0);
+					setTimeout(()=>{
+						rig.pause();
+						pump.pause();
+					},"1500");
+				    }
 		            }
 		        break;
 		    }
 		});
 		
-		const pointerDown = (mesh) => {
-			//console.log(mesh);
-			if(mesh.name.indexOf("pump") !== -1){
-				pumpMove(scene);
-			} 
-			
-		}
+		
 	    
         // Register a render loop to repeatedly render the scene
         engine.runRenderLoop(function () {
