@@ -87,6 +87,21 @@
 		    //var plane = BABYLON.Mesh.CreatePlane("plane", 10.0, scene);
 		    //plane.material =  emLightmat;
 		    
+			// Environment Texture
+		    var hdrTexture = new BABYLON.HDRCubeTexture("hdr/greenwich_park_02_2k.hdr.hdr", scene, 512);
+
+		    // Skybox
+		    var hdrSkybox = BABYLON.Mesh.CreateBox("hdrSkyBox", 1000.0, scene);
+		    var hdrSkyboxMaterial = new BABYLON.PBRMaterial("skyBox", scene);
+		    hdrSkyboxMaterial.backFaceCulling = false;
+		    hdrSkyboxMaterial.reflectionTexture = hdrTexture.clone();
+		    hdrSkyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+			hdrSkyboxMaterial.microSurface = 1.0;
+			hdrSkyboxMaterial.cameraExposure = 0.66;
+			hdrSkyboxMaterial.cameraContrast = 1.66;
+		    hdrSkyboxMaterial.disableLighting = true;
+		    hdrSkybox.material = hdrSkyboxMaterial;
+		    hdrSkybox.infiniteDistance = true;
 			// Create meshes
 		    var sphereGlass = BABYLON.Mesh.CreatePlane("plane",{width:50, height:50}, scene);
 
