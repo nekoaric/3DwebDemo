@@ -120,7 +120,7 @@
 		    glass.albedoColor = new BABYLON.Color3(0.95, 0.95, 0.95);
 		    sphereGlass.material = glass;
 		    var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 64, height: 64 }, scene);
-		    ground.position.y = 0.3 ;
+		    ground.position.y = -1 ;
 		    ground.material = glass;
 		    //导入模型
 		    //SceneLoader.ImportMesh("","/models/","factoryBuild2.gltf",this.scene);
