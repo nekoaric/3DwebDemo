@@ -9,7 +9,7 @@
 		    
 		    /**俯视图camera */
 		    const camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 1, new BABYLON.Vector3(0, 0, 0));
-		    camera.setPosition(new BABYLON.Vector3(0, 15, -40));
+		    camera.setPosition(new BABYLON.Vector3(0, 15, 40));
 		    camera.zoomToMouseLocation = true ;
 		    camera.wheelDeltaPercentage  = 0.05;
 		    camera.lowerBetaLimit = null;
@@ -18,10 +18,10 @@
 		    camera.lowerAlphaLimit = null;
 		    camera.upperAlphaLimit = null;
 		    camera.minZ = 0.1;
-		    camera.useAutoRotationBehavior = true;
-		    camera.autoRotationBehavior.idleRotationSpeed = 0.05;
+		    //camera.useAutoRotationBehavior = true;
+		    //camera.autoRotationBehavior.idleRotationSpeed = 0.05;
 		    camera.setTarget(BABYLON.Vector3.Zero());
-		    
+		    camera.attachControl(canvas, true);
 		    
 		    //gamecamera
 		    //const camera1 = new BABYLON.UniversalCamera("FirstViewCamera", new BABYLON.Vector3(0, 10, 30), scene);
