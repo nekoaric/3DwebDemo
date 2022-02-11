@@ -248,7 +248,7 @@
 		    	pump.play(0);
 			setTimeout(()=>{
 				rig.pause();
-				pump.pause();
+				inflate.pause();
 			},"1500");
 		});
 		
@@ -273,7 +273,7 @@
 		    switch (pointerInfo.type) {
 		        case BABYLON.PointerEventTypes.POINTERDOWN:
 		            if(pointerInfo.pickInfo.hit) {
-		                var mesh = pointerDown(pointerInfo.pickInfo.pickedMesh);
+		                var mesh = pointerInfo.pickInfo.pickedMesh;
 				    if(mesh.name.indexOf("pump") !== -1){
 				    	const pump = scene.getAnimationGroupByName("PumpAction");
 					const inflate = scene.getAnimationGroupByName("InflateAction");
