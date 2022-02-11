@@ -105,7 +105,7 @@
 		    hdrSkybox.infiniteDistance = true;
 			// Create meshes
 		    var sphereGlass = BABYLON.Mesh.CreatePlane("plane",{width:50, height:50}, scene);
-
+		    
 		    // Create materials
 		    var glass = new BABYLON.PBRMaterial("glass", scene);
 		    glass.reflectionTexture = hdrTexture;    
@@ -119,7 +119,8 @@
 		    glass.reflectivityColor = new BABYLON.Color3(0.2, 0.2, 0.2);
 		    glass.albedoColor = new BABYLON.Color3(0.95, 0.95, 0.95);
 		    sphereGlass.material = glass;
-		
+		    var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 64, height: 64 }, scene);
+		    ground.material = glass;
 		    //导入模型
 		    //SceneLoader.ImportMesh("","/models/","factoryBuild2.gltf",this.scene);
 		    //BABYLON.SceneLoader.Append("/models/", "fac_suzhou.glb", scene, function () {
