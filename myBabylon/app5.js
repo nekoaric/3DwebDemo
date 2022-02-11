@@ -243,7 +243,7 @@
 			const rig = scene.getAnimationGroupByName("metarigAction");
 			inflate.play(0);
 			rig.play(0);
-		    	pump.start(false, 1.0, pump.from, pump.to, false).then((result) =>{
+		    	pump.play(0).then((result) =>{
 				inflate.pause();
 				rig.pause();
 			});
