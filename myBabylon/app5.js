@@ -190,7 +190,7 @@
 		     */
 		    
 		    /**拉进动画
-		    //动画集合*/
+		    //动画集合
 		    const animations = [];
 		    const animCam = new BABYLON.Animation("camAnimation", "position", 60, BABYLON.Animation.ANIMATIONTYPE_VECTOR3);
 		    //定义帧位置
@@ -201,7 +201,7 @@
 			animations.push(animCam);
 	        scene.beginDirectAnimation(camera,animations, 0, 60, false);
 		     
-		    
+		    */
 		    
 		    
 		    /** 环境盒子
@@ -246,7 +246,7 @@
 		    	pump.start(false, 1.0, pump.from, pump.to, false).then((result) =>{
 				inflate.pause();
 				rig.pause();
-			};
+			});
 		   
 		});
 		
