@@ -22,7 +22,7 @@
 		    camera.wheelDeltaPercentage  = 0.01;
 		    camera.lowerBetaLimit = null;
 		    //防止入地
-		    camera.upperBetaLimit = Math.PI / 2.2;
+		    //camera.upperBetaLimit = Math.PI / 2.2;
 		    camera.lowerAlphaLimit = null;
 		    camera.upperAlphaLimit = null;
 		    //camera.minZ = 0.1;
