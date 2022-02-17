@@ -119,13 +119,13 @@
 		    glass.reflectivityColor = new BABYLON.Color3(0.2, 0.2, 0.2);
 		    glass.albedoColor = new BABYLON.Color3(0.95, 0.95, 0.95);
 		    sphereGlass.material = glass;
-		    var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 64, height: 64 }, scene);
-		    ground.position.y = -1 ;
-		    ground.material = glass;
+		    //var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 64, height: 64 }, scene);
+		    //ground.position.y = -1 ;
+		    //ground.material = glass;
 		    //导入模型
 		    //SceneLoader.ImportMesh("","/models/","factoryBuild2.gltf",this.scene);
 		    //BABYLON.SceneLoader.Append("/models/", "fac_suzhou.glb", scene, function () {
-			BABYLON.SceneLoader.ImportMeshAsync("","models/", "shadow.glb").then((result) =>{
+			BABYLON.SceneLoader.ImportMeshAsync("","models/", "shadow_ani.glb").then((result) =>{
 		        // do something with the scene
 		        //console.log(result);
 		    	//const anim = scene.getAnimationGroupByName("wajueji_rigAction");
@@ -149,16 +149,16 @@
 		        }
 		        
 		        /**
-		        for (var i = 0; i < scene.animationGroups.length; i++) {
-					console.log(scene.animationGroups[i]);
+		        scene.animationGroups.forEach(anima =>{
+					anima.stop();
+				})
+			     */
+			    for (var i = 0; i < scene.animationGroups.length; i++) {
+					//console.log(scene.animationGroups[i]);
 	            	keyAnim = scene.animationGroups[i];
 		    		keyAnim.start(true, 1.0, keyAnim.from, keyAnim.to, false);
 		        }
-			     */
-			    
-			scene.animationGroups.forEach(anima =>{
-					anima.stop();
-				})
+			
 
 			//const machine_mat = scene.getMaterialByName ("machine_base");
 		    	
