@@ -387,12 +387,17 @@ const createScene = function(){
 		//eventRay.parent = oc ;
 		 rayHelper.show(scene);
 		
-		//朝下发出接触射线用于判断落地
+		/**朝下发出接触射线用于判断落地
 		oc.contactRay = new BABYLON.Ray();
 		var contactRayHelper = new BABYLON.RayHelper(oc.contactRay);
 		contactRayHelper.attachToMesh(oc, new BABYLON.Vector3(0,-1,0),new BABYLON.Vector3(0,0,0), 1.1);
 		contactRayHelper.show(scene);
-		
+		*/
+		oc.contactRay = new BABYLON.Ray(oc.position,new BABYLON.Vector3(0, -1.3, 0));
+		oc.contactRay.length = 0.9;
+
+
+
 		camera.lockedTarget = oc;
 		oc.speed = 6;
 		oc.speedsprint = 12;
