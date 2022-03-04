@@ -3,7 +3,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Babylon Template</title>
+        <title>Babylon RPG</title>
 
         <style>
             html, body {
@@ -28,17 +28,27 @@
 				display:none;
 			}
         </style>
-		
         <script src="js/babylonjs/babylon.js"></script>
         <!-- <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script> -->
         <script  src="js/babylonjs/babylonjs.loaders.min.js"></script>
         <script  src="js/babylonjs/babylon.2.1.debug.js"></script>
         <script  src="js/babylonjs/babylon.gui.min.js"></script>
         <script  src="js/babylonjs/ammo.js"></script>
+        <script  src="js/babylonjs/cannon.js"></script>
     </head>
 
    <body>
-	
+	<div class="container btnDiv" id="app">
+		<div class="row">
+			<div class="col-md-6">
+				<button id="fac1" type="button" class="btn btn-outline-primary btn-lg">厂区1</button>
+			</div>
+			<div class="col-md-6">
+				
+				<button id="fac2" type="button"  class="btn btn-outline-success btn-lg">厂区2</button>
+			</div>
+		</div>
+	</div>
 
     <canvas id="renderCanvas" touch-action="none"></canvas> <!-- touch-action="none" for best results from PEP -->
 	
