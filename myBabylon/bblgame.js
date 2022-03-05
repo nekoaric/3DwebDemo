@@ -1,10 +1,11 @@
 /**
 1.基础的移动操作 √
 2.发射子弹 2022年3月3日16:18:38 
-3.子弹射中目标
+3.子弹射中目标 2022年3月5日14:13:16
 4.发射动画 2022年3月4日15:56:19
 5.持续按住蓄力发射 2022年3月4日15:56:22
-
+6.敌人播放击中动画 2022年3月5日14:13:27
+7.敌人运动
 
  */
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
@@ -107,7 +108,7 @@ const createScene = function(){
 	const skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:400}, scene);
 	const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
 	skyboxMaterial.backFaceCulling = false;
-	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("imgs/skybox", scene);
+	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/imgs/skybox", scene);
 	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 	skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
 	skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
@@ -255,7 +256,7 @@ const createScene = function(){
 		//result.meshes.forEach((m)=>{
 		   //m.physicsImpostor = new BABYLON.PhysicsImpostor(m, BABYLON.PhysicsImpostor.MeshImpostor, { mass: 3 }, scene);
 		//})
-		var yardRoot = makePhysicsObject(result.meshes, scene, -1);
+		
 		defaultPipeline.imageProcessing.toneMappingEnabled = false;
 		for (var i = 0; i < result.meshes.length; i++) {
 			//移动碰撞
@@ -279,7 +280,7 @@ const createScene = function(){
 			} 
 		}
 		
-	   
+		   var yardRoot = makePhysicsObject(result.meshes, scene, 1);
 		/**
 		for (var i = 0; i < scene.animationGroups.length; i++) {
 			console.log(scene.animationGroups[i]);
@@ -311,28 +312,60 @@ const createScene = function(){
 			shadowGenerator.addShadowCaster(trees[i], true);
 		}
 	});
+	//************************ enemy */
+	var enemy_box = new BABYLON.MeshBuilder.CreateBox("enemy_box", {height: 2.5, width: 1, depth: 1}, scene);
+	enemy_box.position.y = 1.3;
+	enemy_box.checkCollisions = true ;
+	var helpMaterial = new BABYLON.StandardMaterial("help", scene);
+	helpMaterial.emissiveColor = new BABYLON.Color4(0.8,0,0,1);
+	helpMaterial.wireframe = true;
+	helpMaterial.transparencyMode = 2;
+	helpMaterial.roughness = 1;
+	helpMaterial.alpha = 0;
+	enemy_box.material = helpMaterial ;
 	
-	// 创建一个发射单位 并用instance管理
+	BABYLON.SceneLoader.ImportMeshAsync("","models/", "enemy.glb").then((rs) => {
+		var enemy_mesh = rs.meshes[0];
+		enemy_mesh.position = new BABYLON.Vector3(0, -1.2, 0);
+		enemy_mesh.parent = enemy_box ;
+		const enemys = [];
+		/**We create trees at random positions
+		for (let i = 0; i < 10; i++) {
+			enemys[i] = enemy_box.clone("enemy_box" + i);
+			enemys[i].position.x = Math.random() * (20);
+			enemys[i].position.z = Math.random() * 80 ;
+			enemys[i].position.y = 0.5;
+			enemys[i].checkCollisions = true ;
+			shadowGenerator.addShadowCaster(enemys[i], true);
+			enemys[i].physicsImpostor = new BABYLON.PhysicsImpostor(enemys[i], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1.0, friction: 1.1 }, scene);
+		}
+		 */
+	})
+	enemy_box.position = new BABYLON.Vector3(15.0, 1.0, 0.0);
+	enemy_box.rotation.y = 90 ;
+	enemy_box.physicsImpostor = new BABYLON.PhysicsImpostor(enemy_box, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1.0, friction: 1.1 }, scene);
 	
 	//角色碰撞块
 	var oc = new BABYLON.MeshBuilder.CreateSphere("oc", {
 	diameterX: 1, 
 	diameterY: 2.5, 
 	diameterZ: 1});
-	oc.position = new BABYLON.Vector3(0, 0.9, 0);
+	//中心点至地面距离 
+	var height = 1.1;
+	oc.position = new BABYLON.Vector3(0, height, 0);
 	oc.material = new BABYLON.StandardMaterial("playerMat", scene);
 	oc.material.emissiveColor = new BABYLON.Color4(0,0.8,0,1);
 	oc.material.wireframe = true;
 	oc.material.transparencyMode = 2;
 	oc.material. roughness = 1;
 	oc.material.alpha = 0;
+	
 	//发射源
 	var ssource = new BABYLON.MeshBuilder.CreateBox("ssource", {width: 0.1, depth: 0.1, height:0.1}, scene);
 	ssource.position = oc.getAbsolutePosition().add(new BABYLON.Vector3(0, -0.4, 0.2));
 	ssource.isVisible = false;
 	ssource.parent = oc ;
-	
-	
+
 			
 	//角色
 	BABYLON.SceneLoader.ImportMeshAsync("","models/", "charater.glb").then((rs) => {
@@ -385,19 +418,18 @@ const createScene = function(){
 		var rayHelper = new BABYLON.RayHelper(eventRay);
 		rayHelper.attachToMesh(oc, new BABYLON.Vector3(0,0,1),new BABYLON.Vector3(0,0,0), 1.5);
 		//eventRay.parent = oc ;
-		 rayHelper.show(scene);
+		 //rayHelper.show(scene);
 		
-		/**朝下发出接触射线用于判断落地
-		oc.contactRay = new BABYLON.Ray();
+		//朝下发出接触射线用于判断落地
+		//oc.contactRay = new BABYLON.Ray();
+		//var contactRayHelper = new BABYLON.RayHelper(oc.contactRay);
+		//contactRayHelper.attachToMesh(oc, new BABYLON.Vector3(0,-1,0),new BABYLON.Vector3(0,0,0), 1.1);
+		//contactRayHelper.show(scene);
+		oc.contactRay = new BABYLON.Ray(oc.position,new BABYLON.Vector3(0, -height, 0));
+		oc.contactRay.length = height;
 		var contactRayHelper = new BABYLON.RayHelper(oc.contactRay);
-		contactRayHelper.attachToMesh(oc, new BABYLON.Vector3(0,-1,0),new BABYLON.Vector3(0,0,0), 1.1);
-		contactRayHelper.show(scene);
-		*/
-		oc.contactRay = new BABYLON.Ray(oc.position,new BABYLON.Vector3(0, -1.3, 0));
-		oc.contactRay.length = 0.9;
-
-
-
+		//contactRayHelper.show(scene);
+		
 		camera.lockedTarget = oc;
 		oc.speed = 6;
 		oc.speedsprint = 12;
@@ -412,6 +444,7 @@ const createScene = function(){
 		const sprintAnim = scene.getAnimationGroupByName("sprint");
 		const jumpAnim = scene.getAnimationGroupByName("jump");
 		const blowAnim = scene.getAnimationGroupByName("blow");
+		const infAnim = scene.getAnimationGroupByName("Key.018Action");
 		idleAnim.start(true, 1.0, idleAnim.from, idleAnim.to, false);
 		/*********************** 动画控制 *****************
 			动画和物理后每一帧触发
@@ -462,6 +495,8 @@ const createScene = function(){
 			}
 		});
 	   
+	  
+	   
 		// ****************键盘输入***************
 		scene.onKeyboardObservable.add((kbinfo) => {
 			//console.log(kbinfo);
@@ -478,7 +513,7 @@ const createScene = function(){
 				sprintAnim.start(true, 1.0, sprintAnim.from, sprintAnim.to, false);   
 				animating = true;
 			}  else if(kbinfo.event.code == "KeyR") {
-				oc.position = new BABYLON.Vector3(0, 10, 0);
+				oc.position = new BABYLON.Vector3(0, height, 0);
 			} else if(kbinfo.event.code == "Space" && !oc.falling) {
 				oc.jump = true;
 				jumpAnim.stop();
@@ -533,26 +568,37 @@ const createScene = function(){
 				animating = true;
 				scene.onBeforeRenderObservable.remove(scene.step); 
 				var bullet = BABYLON.MeshBuilder.CreateSphere("Bullet", { segments: 20, diameter:size }, scene);
+				bullet.size = size ;
 				bullet.material = glass;
 				bullet.position = ssource.getAbsolutePosition();
-				bullet.physicsImpostor = new BABYLON.PhysicsImpostor(bullet, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 0.5, friction: 0.5, restition: 0.3 }, scene);
+				bullet.physicsImpostor = new BABYLON.PhysicsImpostor(bullet, BABYLON.PhysicsImpostor.SphereImpostor, { mass: 0.3, friction: 0.5, restition: 0.3 }, scene);
 				var dir = eventRay.direction;
 				bullet.physicsImpostor.applyImpulse(dir.scale(power), ssource.getAbsolutePosition());
 				bullet.life = 0
 				
 				bullet.step = ()=>{
 					bullet.life++
+					
 					if(bullet.life>200 && bullet.physicsImpostor){
 						bullet.physicsImpostor.dispose();
 						bullet.dispose();                
 					}
 				}
+				
+				
 				//发射物撞击事件
 				bullet.physicsImpostor.onCollideEvent = (e, t)=>{
-				  console.log(e,t)
+					  if(bullet.intersectsMesh(enemy_box, true)){
+						console.log("hit:size"+ bullet.size);
+						infAnim.play(false);
+						setTimeout(()=>{infAnim.pause()},bullet.size*2000);
+						bullet.physicsImpostor.dispose();
+						bullet.dispose(); 
+					}
 				}
 		
-				scene.onBeforeRenderObservable.add(bullet.step) 
+				scene.onBeforeRenderObservable.add(bullet.step);
+				//scene.onBeforeRenderObservable.add(bullet.hit) ;
 				power = 0.1; //重置
 				size = 0.5 ; 
 			}
@@ -576,10 +622,11 @@ const createScene = function(){
 			var externalPhysicalImpact = false;
 			
 			var results = [];
-			//遁地返回起始点
+			//遁地返回起始点 TODO:有bug  接触地面用的ray不回跟着移动
 			if(oc.position.y <= -100){
 				oc.position = new BABYLON.Vector3(0, 1, 0);
 			} 
+			
 			
 			/**发射体运动 已废弃
 			
@@ -899,38 +946,38 @@ window.addEventListener("resize", function () {
 var makePhysicsObject = (newMeshes, scene, scaling)=>{
 // Create physics root and position it to be the center of mass for the imported mesh
 var physicsRoot = new BABYLON.Mesh("physicsRoot", scene);
-//physicsRoot.position.y += 0.9;
+physicsRoot.position.y -= 0.9;
 
 // For all children labeled box (representing colliders), make them invisible and add them as a child of the root object
 newMeshes.forEach((m, i)=>{
 	if(m.name.indexOf("box") != -1){
-		m.isVisible = false;
-	   
+		//m.isVisible = false;
 		physicsRoot.addChild(m);
 		
 	}
 })
 
-// Add all root nodes within the loaded gltf to the physics root
+/**  Add all root nodes within the loaded gltf to the physics root
 newMeshes.forEach((m, i)=>{
 	if(m.parent == null ){
 		physicsRoot.addChild(m);
 	}
 })
-
+*/
 // Make every collider into a physics impostor
 physicsRoot.getChildMeshes().forEach((m)=>{
 	 m.isPickable =false ;
 	if(m.name.indexOf("box") != -1 ){
-		m.scaling.x = Math.abs(m.scaling.x);
-		m.scaling.y = Math.abs(m.scaling.y);
-		m.scaling.z = Math.abs(m.scaling.z);
+		//m.scaling.x = Math.abs(m.scaling.x);
+		//m.scaling.y = Math.abs(m.scaling.y);
+		//m.scaling.z = Math.abs(m.scaling.z);
+		m.checkCollisions = false ;
 		m.physicsImpostor = new BABYLON.PhysicsImpostor(m, BABYLON.PhysicsImpostor.MeshImpostor, { mass: 0 , friction: 0.5, restitution: 0.7 }, scene);
 	}
 })
 
 // Scale the root object and turn it into a physics impsotor
-physicsRoot.scaling.scaleInPlace(scaling);
+//physicsRoot.scaling.scaleInPlace(scaling);
 physicsRoot.physicsImpostor = new BABYLON.PhysicsImpostor(physicsRoot, BABYLON.PhysicsImpostor.NoImpostor, { mass: 0 , friction: 0.5, restitution: 0.7 }, scene);
 
 return physicsRoot;
